@@ -1,0 +1,40 @@
+#
+# ARTEMIS Configuration File (FORTH NETWORK)
+#loukas
+# Start of Prefix Definitions
+prefixes:
+  my_prefix: &my_prefix
+  - 184.164.247.0/24^+
+# End of Prefix Definitions
+
+# Start of Monitor Definitions
+monitors:
+  riperis: ['']
+  bgpstreamlive:
+    - routeviews
+    - ris
+# End of Monitor Definitions
+
+# Start of ASN Definitions
+asns:
+  my_asn: &my_asn
+  - 61574
+  neighbor_asn: &neighbor_asn
+  - 47065
+# End of ASN Definitions
+
+# Start of Rule Definitions
+rules:
+#Fake origin (+ exact-prefix): E|0|-|-
+#Legal origin, fake first hop neighbor (+exact-prefix): E|1|-|-
+#Sub-prefix: S|*|-|-
+- prefixes:
+  - *my_prefix
+  origin_asns:
+  - *my_asn
+  neighbors:
+  - *neighbor_asn
+  mitigation: manual
+
+# End of Rule Definitions
+
